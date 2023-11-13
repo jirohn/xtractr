@@ -1,8 +1,0 @@
-whatsapp-ajax:
-  version: 1.x
-  js:
-    js/whatsapp.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
-    - core/drupal.ajax

@@ -1,0 +1,104 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\Core\Entity\Entity\EntityViewDisplay;
+
+/**
+ * Implementa hook_install().
+ */
+function xtractr_install() {
+    createContentTypeAndFields();
+    configureFieldDisplays();
+}
+
+function createContentTypeAndFields() {
+    // Crear el tipo de contenido 'telefono' si no existe.
+    if (!NodeType::load('telefono')) {
+        $tipo_telefono = NodeType::create(['type' => 'telefono', 'name' => 'Teléfono']);
+        $tipo_telefono->save();
+    }
+
+    // Crear el tipo de contenido 'pagina_de_extraccion' si no existe.
+    if (!NodeType::load('pagina_de_extraccion')) {
+        $tipo_pagina_de_extraccion = NodeType::create(['type' => 'pagina_de_extraccion', 'name' => 'Página de Extracción']);
+        $tipo_pagina_de_extraccion->save();
+    }
+
+    // Crear y configurar campos.
+    createAndConfigureField('field_telefono', 'node', 'telefono', 'string', 'Número de Teléfono');
+    createAndConfigureField('field_enviado', 'node', 'telefono', 'boolean', 'Enviado');
+    createAndConfigureField('field_urlextract', 'node', 'pagina_de_extraccion', 'string', 'URL de Extracción');
+}
+
+function createAndConfigureField($field_name, $entity_type, $bundle, $field_type, $label) {
+    if (!FieldStorageConfig::loadByName($entity_type, $field_name)) {
+        $field_storage = FieldStorageConfig::create([
+            'field_name' => $field_name,
+            'entity_type' => $entity_type,
+            'type' => $field_type,
+        ]);
+        $field_storage->save();
+
+        $field = FieldConfig::create([
+            'field_storage' => $field_storage,
+            'bundle' => $bundle,
+            'label' => $label,
+        ]);
+        $field->save();
+    }
+}
+
+function configureFieldDisplays() {
+    configureFieldDisplay('telefono', 'field_telefono', 'string_textfield', 'string');
+    configureFieldDisplay('telefono', 'field_enviado', 'boolean_checkbox', 'boolean');
+    configureFieldDisplay('pagina_de_extraccion', 'field_urlextract', 'string_textfield', 'string');
+}
+
+function configureFieldDisplay($bundle, $field_name, $form_display_type, $view_display_type) {
+    // Configurar el formulario de visualización para el campo.
+    $form_display = EntityFormDisplay::load("node.{$bundle}.default");
+    if (!$form_display) {
+        $form_display = EntityFormDisplay::create([
+            'targetEntityType' => 'node',
+            'bundle' => $bundle,
+            'mode' => 'default',
+            'status' => TRUE,
+        ]);
+    }
+    $form_display->setComponent($field_name, ['type' => $form_display_type])->save();
+
+    // Configurar la visualización del contenido para el campo.
+    $view_display = EntityViewDisplay::load("node.{$bundle}.default");
+    if (!$view_display) {
+        $view_display = EntityViewDisplay::create([
+            'targetEntityType' => 'node',
+            'bundle' => $bundle,
+            'mode' => 'default',
+            'status' => TRUE,
+        ]);
+    }
+    $view_display->setComponent($field_name, ['type' => $view_display_type])->save();
+}
+/**
+ * Implements hook_uninstall().
+ */
+function xtractr_uninstall() {
+  // Eliminar los campos creados por el módulo.
+  $fields_to_delete = ['field_telefono', 'field_enviado', 'field_urlextract'];
+  foreach ($fields_to_delete as $field_name) {
+      if ($field_storage = FieldStorageConfig::loadByName('node', $field_name)) {
+          $field_storage->delete();
+      }
+  }
+
+  // Eliminar los tipos de contenido creados por el módulo.
+  $content_types_to_delete = ['telefono', 'pagina_de_extraccion'];
+  foreach ($content_types_to_delete as $content_type) {
+      if ($type = NodeType::load($content_type)) {
+          $type->delete();
+      }
+  }
+}
