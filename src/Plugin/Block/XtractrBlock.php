@@ -62,6 +62,9 @@ class XtractrBlock extends BlockBase {
         'pager' => [
             '#type' => 'pager',
         ],
+        '#cache' => [
+            'max-age' => 0, // Desactiva la caché para este bloque.
+        ],
     ];
 }
 
