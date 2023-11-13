@@ -1,0 +1,53 @@
+# modules/custom/xtractr/config/schema/pagina_de_extraccion.schema.yml
+pagina_de_extraccion:
+  type: entity
+  label: 'Pagina de extraccion'
+  bundle_entity_type: pagina_de_extraccion
+  entity_keys:
+    id:
+      type: integer
+      label: 'ID'
+      constraints:
+        - NotNull: {}
+      column: 
+        name: id
+        type: serial
+        size: normal
+    uuid:
+      type: uuid
+      label: 'UUID'
+    langcode:
+      type: string
+      label: 'Language code'
+      constraints:
+        - Language:
+            allowed_languages: []
+            default_language: null
+            multiple: true
+      column: 
+        name: langcode
+        type: varchar
+        length: 12
+        not null: true
+        default: ''
+    uid:
+      type: entity_reference
+      label: 'User ID'
+      settings:
+        target_type: user
+      constraints:
+        - Drupal\user\Plugin\Constraints\UserReferenceAccess:
+            entityType: user
+      column: 
+        name: uid
+        type: int
+        not null: true
+        default: 0
+  links:
+    canonical: /entity.pagina_de_extraccion.edit_form
+    add-form: /entity.pagina_de_extraccion.add_form
+    delete-form: /entity.pagina_de_extraccion.delete_form
+    collection: /entity.pagina_de_extraccion.collection
+  field_ui_base_route: entity.pagina_de_extraccion.collection
+  common_reference_target: true
+  bundle_of: pagina_de_extraccion

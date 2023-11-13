@@ -1,0 +1,33 @@
+xtractr.extractor:
+  path: '/xtractr/extractor/'
+  defaults:
+    _controller: '\Drupal\xtractr\Controller\XtractrController::index'
+    _title: 'Xtractr'
+  requirements:
+    _permission: 'access content'
+    
+
+xtractr.extract_from_node:
+  path: '/xtractr/extract/{nid}'
+  defaults:
+    _controller: '\Drupal\xtractr\Controller\XtractrController::extractFromNode'
+    _title: 'Extracción de Teléfonos'
+  requirements:
+    _permission: 'access content'
+
+xtractr.update_node:
+  path: '/xtractr/update-node'
+  defaults:
+    _controller: '\Drupal\xtractr\Controller\WhatsAppController::updateNode'
+    _title: 'Actualizar Nodo'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'
+
+xtractr.update_enviado:
+  path: '/xtractr/update-enviado/{nid}'
+  defaults:
+    _controller: '\Drupal\xtractr\Controller\XtractrController::updateEnviado'
+    _title: 'Actualizar Enviado y Redirigir a WhatsApp'
+  requirements:
+    _permission: 'access content'

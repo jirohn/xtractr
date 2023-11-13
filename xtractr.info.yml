@@ -1,0 +1,9 @@
+name: 'Xtractr'
+type: module
+description: 'Custom module for Xtractr functionality.'
+core_version_requirement: ^10 || ^9
+package: Custom
+
+
+theme:
+  xtractr_page_list: xtractr-page-list

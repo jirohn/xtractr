@@ -1,0 +1,73 @@
+<?php
+
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implementa hook_install().
+ */
+function xtractr_install() {
+  // Crear el tipo de contenido 'telefono' si no existe.
+  if (!NodeType::load('telefono')) {
+    $tipo_telefono = NodeType::create(['type' => 'telefono', 'name' => 'Teléfono']);
+    $tipo_telefono->save();
+  }
+
+  // Crear el campo 'field_telefono' si no existe.
+  if (!FieldStorageConfig::loadByName('node', 'field_telefono')) {
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => 'field_telefono',
+      'entity_type' => 'node',
+      'type' => 'string',
+    ]);
+    $field_storage->save();
+
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => 'telefono',
+      'label' => 'Número de Teléfono',
+    ]);
+    $field->save();
+  }
+
+  // Crear el campo 'field_enviado' si no existe.
+  if (!FieldStorageConfig::loadByName('node', 'field_enviado')) {
+    $field_storage_enviado = FieldStorageConfig::create([
+      'field_name' => 'field_enviado',
+      'entity_type' => 'node',
+      'type' => 'boolean',
+    ]);
+    $field_storage_enviado->save();
+
+    $field_enviado = FieldConfig::create([
+      'field_storage' => $field_storage_enviado,
+      'bundle' => 'telefono',
+      'label' => 'Enviado',
+      'default_value' => [0 => ['value' => 0]],
+    ]);
+    $field_enviado->save();
+  }
+  // creamos el tipo de contenido pagina_de_extraccion si no existe
+    if (!NodeType::load('pagina_de_extraccion')) {
+        $tipo_pagina_de_extraccion = NodeType::create(['type' => 'pagina_de_extraccion', 'name' => 'Página de Extracción']);
+        $tipo_pagina_de_extraccion->save();
+    }
+    // creamos el campo field_urlextract si no existe
+    if (!FieldStorageConfig::loadByName('node', 'field_urlextract')) {
+        $field_storage = FieldStorageConfig::create([
+            'field_name' => 'field_urlextract',
+            'entity_type' => 'node',
+            'type' => 'string',
+        ]);
+        $field_storage->save();
+
+        $field = FieldConfig::create([
+            'field_storage' => $field_storage,
+            'bundle' => 'pagina_de_extraccion',
+            'label' => 'URL de Extracción',
+        ]);
+        $field->save();
+    }
+    
+}

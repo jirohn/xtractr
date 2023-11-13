@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Theme override for Xtractr page list.
+ *
+ * Variables disponibles:
+ * - page_list: Lista de páginas de extracción.
+ *   - id: Identificador de la página.
+ *   - title: Título de la página.
+ */
+#}
+<h1> PAGINA DE EXTRACCION </H1>
+<ul>
+  {% for page in page_list %}
+    <li>{{ page.title }}
+      <button class="extract-button" data-page-id="{{ page.id }}">Extraer</button>
+    </li>
+  {% endfor %}
+</ul>
+
+<div id="extraction-result"></div>
+
+<script>
+(function ($) {
+  Drupal.behaviors.xtractrExtractButton = {
+    attach: function (context, settings) {
+      $('.extract-button', context).once('xtractrExtractButton').on('click', function () {
+        var pageId = $(this).data('page-id');
+        extractNumbers(pageId);
+      });
+
+      function extractNumbers(pageId) {
+        $.ajax({
+          url: '/xtractr/extract/' + pageId,
+          method: 'POST',
+          success: function (response) {
+            $('#extraction-result').html(response.message);
+          },
+          error: function (xhr, status, error) {
+            console.error('Error extracting numbers:', error);
+          },
+        });
+      }
+    }
+  };
+})(jQuery);
+</script>
