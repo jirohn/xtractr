@@ -170,6 +170,7 @@ public function updateEnviado($nid) {
 
   if ($node && $node->bundle() == 'telefono' && $node->hasField('field_enviado')) {
     // Actualizar el nodo.
+
     $node->set('field_enviado', TRUE);
     $node->save();
 
@@ -177,8 +178,11 @@ public function updateEnviado($nid) {
     $telefono = $node->get('field_telefono')->value;
     $whatsapp_url = "https://wa.me/34{$telefono}?text=test";
 
-    // Redirigir a la URL de WhatsApp.
+    // Redirigir a la URL de WhatsApp cuando el valor ha sido cambiado correctamente, si no no
+    // redirigir.
     return new TrustedRedirectResponse($whatsapp_url);
+
+   
   } else {
     // Manejar el caso de error.
     return new JsonResponse(['error' => 'Nodo no válido o no encontrado']);
