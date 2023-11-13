@@ -26,11 +26,26 @@ function createContentTypeAndFields() {
         $tipo_pagina_de_extraccion = NodeType::create(['type' => 'pagina_de_extraccion', 'name' => 'Página de Extracción']);
         $tipo_pagina_de_extraccion->save();
     }
+    // creamos el tipo de contenido 'clientes' si no existe.
+    if (!NodeType::load('clientes')) {
+        $tipo_clientes = NodeType::create(['type' => 'clientes', 'name' => 'Clientes']);
+        $tipo_clientes->save();
+    }
 
     // Crear y configurar campos.
     createAndConfigureField('field_telefono', 'node', 'telefono', 'string', 'Número de Teléfono');
     createAndConfigureField('field_enviado', 'node', 'telefono', 'boolean', 'Enviado');
     createAndConfigureField('field_urlextract', 'node', 'pagina_de_extraccion', 'string', 'URL de Extracción');
+    //el tipo de contenido clientes tiene los siguientes campos: nombre, edad, ciudad, telefono, email(opcional), tipo de tarifa (texto), fecha de contratacion, observaciones(opcional)
+    createAndConfigureField('field_nombre', 'node', 'clientes', 'string', 'Nombre');
+    createAndConfigureField('field_edad', 'node', 'clientes', 'integer', 'Edad');
+    createAndConfigureField('field_ciudad', 'node', 'clientes', 'string', 'Ciudad');
+    createAndConfigureField('field_telefono', 'node', 'clientes', 'string', 'Telefono');
+    createAndConfigureField('field_email', 'node', 'clientes', 'string', 'Email');
+    createAndConfigureField('field_tipo_tarifa', 'node', 'clientes', 'string', 'Tipo de Tarifa');
+    createAndConfigureField('field_fecha_contratacion', 'node', 'clientes', 'datetime', 'Fecha de Contratacion');
+    createAndConfigureField('field_observaciones', 'node', 'clientes', 'string', 'Observaciones');
+
 }
 
 function createAndConfigureField($field_name, $entity_type, $bundle, $field_type, $label) {
@@ -55,6 +70,16 @@ function configureFieldDisplays() {
     configureFieldDisplay('telefono', 'field_telefono', 'string_textfield', 'string');
     configureFieldDisplay('telefono', 'field_enviado', 'boolean_checkbox', 'boolean');
     configureFieldDisplay('pagina_de_extraccion', 'field_urlextract', 'string_textfield', 'string');
+    // configuramos los displays del tipo de contenido clientes
+    configureFieldDisplay('clientes', 'field_nombre', 'string_textfield', 'string');
+    configureFieldDisplay('clientes', 'field_edad', 'number', 'number_integer');
+    configureFieldDisplay('clientes', 'field_ciudad', 'string_textfield', 'string');
+    configureFieldDisplay('clientes', 'field_telefono', 'string_textfield', 'string');
+    configureFieldDisplay('clientes', 'field_email', 'string_textfield', 'string');
+    configureFieldDisplay('clientes', 'field_tipo_tarifa', 'string_textfield', 'string');
+    configureFieldDisplay('clientes', 'field_fecha_contratacion', 'datetime_default', 'datetime_default');
+    configureFieldDisplay('clientes', 'field_observaciones', 'string_textarea', 'string');
+
 }
 
 function configureFieldDisplay($bundle, $field_name, $form_display_type, $view_display_type) {
@@ -101,4 +126,11 @@ function xtractr_uninstall() {
           $type->delete();
       }
   }
+  // eliminamos el tipo de contenido clientes
+    $content_types_to_delete = ['clientes'];
+    foreach ($content_types_to_delete as $content_type) {
+        if ($type = NodeType::load($content_type)) {
+            $type->delete();
+        }
+    }
 }

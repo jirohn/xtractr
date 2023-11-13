@@ -143,6 +143,7 @@ public function extractFromNode($nid) {
             'type' => 'telefono',
             'title' => $phone_number, // Provide a title for the entity.
             'field_telefono' => $phone_number,
+            'field_enviado' => FALSE, // Set the "enviado" field to FALSE by default.
           ]);
           $telefono->save();
           $copied++;
@@ -176,8 +177,18 @@ public function updateEnviado($nid) {
 
     // Construir la URL de WhatsApp.
     $telefono = $node->get('field_telefono')->value;
-    $whatsapp_url = "https://wa.me/34{$telefono}?text=test";
+    $mensajes = array(
+      "¿Quieres más llamadas y visibilidad para tus anuncios? En TuTeAnuncias somos expertos en eso. 🚀 ¿Te gustaría ver los packs y potenciar tu éxito? Háblame!!",
+      "¿Buscas aumentar tus llamadas y destacar en la visibilidad de tus anuncios? Descubre cómo, en TuTeAnuncias lo hacemos por ti. 📈 ¿Interesad@? Contáctame ahora.",
+      "¡Optimiza tus anuncios con más llamadas y visibilidad! En TuTeAnuncias tenemos las mejores tarifas. 💼 ¿List@ para potenciar tu éxito? Házmelo saber!",
+      "¿Quieres destacar tus anuncios con más llamadas y visibilidad? En TuTeAnuncias te ayudamos a lograrlo. 🌟 Descubre nuestros packs y potencia tu éxito. ¡Háblame!",
+      "Optimiza tu presencia online: más llamadas, más visibilidad. En TuTeAnuncias tenemos la fórmula para tu éxito. 💪 ¿Listo para dar el siguiente paso? Contáctame ahora.",
+      "¿Buscas estrategias efectivas para aumentar tus llamadas y visibilidad? En TuTeAnuncias somos la clave. 🚀 Descubre cómo podemos potenciar tus anuncios. Háblame!"
 
+  );
+    $mensajes[array_rand($mensajes)];
+
+    $whatsapp_url = "https://wa.me/34{$telefono}?text=". urlencode($mensajes[array_rand($mensajes)]);
     // Redirigir a la URL de WhatsApp cuando el valor ha sido cambiado correctamente, si no no
     // redirigir.
     return new TrustedRedirectResponse($whatsapp_url);

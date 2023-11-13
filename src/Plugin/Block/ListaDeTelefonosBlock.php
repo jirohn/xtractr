@@ -52,17 +52,17 @@ class ListaDeTelefonosBlock extends BlockBase {
     }
     
 
-    $build = [
-      '#theme' => 'item_list',
-      '#items' => $items,
-      '#title' => $this->t('Tus telefonos extraidos'),
-      'pager' => [
-          '#type' => 'pager',
-      ],
-      '#cache' => [
-          'max-age' => 0, // Desactiva la caché para este bloque.
-      ],
-  ];
+     $build = [
+        '#theme' => 'item_list',
+        '#items' => $items,
+        '#title' => $this->t('Tus telefonos extraidos'),
+        'pager' => [
+            '#type' => 'pager',
+        ],
+        '#cache' => [
+            'max-age' => 0, // Desactiva la caché para este bloque.
+        ],
+    ];
     return $build;
   }
 
