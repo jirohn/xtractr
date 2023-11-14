@@ -1,1 +1,24 @@
 <?php
+
+/**
+ * @file
+ * Contiene el código principal del módulo Xtractr.
+ */
+
+/**
+ * Implementa hook_theme().
+ * 
+ * Registra las plantillas Twig personalizadas y sus variables.
+ */
+/*function xtractr_theme($existing, $type, $theme, $path) {
+    //asignamos un theme a listadetelefonosblock
+    return [
+        'block__lista_de_telefonos' => [
+            'variables' => ['items' => [], 'title' => NULL],
+            'template' => 'block--lista-de-telefonos',
+        ],
+    ];
+  }
+  */
+
+// Aquí puedes añadir otros hooks y funciones necesarias para tu módulo.

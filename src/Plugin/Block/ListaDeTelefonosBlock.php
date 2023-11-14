@@ -40,30 +40,29 @@ class ListaDeTelefonosBlock extends BlockBase {
     $items = [];
 
     foreach ($nodes as $node) {
-        if ($node->hasField('field_telefono') && !$node->get('field_telefono')->isEmpty()) {
-            $telefono = $node->get('field_telefono')->value;
-            $enviar_url = Url::fromRoute('xtractr.update_enviado', ['nid' => $node->id()]);
-            // enviar_url lo convertimos en string
-            $enviar_url = $enviar_url->toString();
-            $enviar_link = '<a href="' . $enviar_url . '" target="_blank" onclick="window.location.reload(true);">' . $this->t('Enviar WhatsApp') . '</a>';
-    
-            $items[] = ['#markup' => $telefono . ' ' . $enviar_link];
-        }
+      if ($node->hasField('field_telefono') && !$node->get('field_telefono')->isEmpty()) {
+        $telefono = $node->get('field_telefono')->value;
+        $enviar_url = Url::fromRoute('xtractr.update_enviado', ['nid' => $node->id()])->toString();
+        $enviar_link = '<a href="' . $enviar_url . '" class="xtractr-enviar">' . $this->t('Enviar WhatsApp') . '</a>';
+        $items[] = ['#markup' => '<div class="xtractr-telefono">' . $telefono . ' ' . $enviar_link . '</div>'];
+    }
     }
     
 
-     $build = [
-        '#theme' => 'item_list',
-        '#items' => $items,
-        '#title' => $this->t('Tus telefonos extraidos'),
-        'pager' => [
-            '#type' => 'pager',
-        ],
-        '#cache' => [
-            'max-age' => 0, // Desactiva la caché para este bloque.
-        ],
-    ];
-    return $build;
+    $build = [
+      '#prefix' => '<div class="xtractr-telefono-container">', // Envolver todos los elementos en un div
+      '#theme' => 'item_list', // Asegúrate de que este tema coincida con el definido en hook_theme
+      '#items' => $items,
+      '#suffix' => '</div>',
+      '#cache' => [
+          'max-age' => 0,
+      ],
+  ];
+  // enviamos el item 1 del build al log
+  $build['#attached']['library'][] = 'xtractr/estilos-bloque';
+
+  \Drupal::logger('xtractr')->notice($build['#items'][1]['#markup']);
+  return $build;
   }
 
   /**

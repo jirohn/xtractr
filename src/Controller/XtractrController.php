@@ -188,7 +188,7 @@ public function updateEnviado($nid) {
   );
     $mensajes[array_rand($mensajes)];
 
-    $whatsapp_url = "https://wa.me/34{$telefono}?text=". urlencode($mensajes[array_rand($mensajes)]);
+    $whatsapp_url = "whatsapp://send?phone=34{$telefono}&text=". urlencode($mensajes[array_rand($mensajes)]);
     // Redirigir a la URL de WhatsApp cuando el valor ha sido cambiado correctamente, si no no
     // redirigir.
     return new TrustedRedirectResponse($whatsapp_url);

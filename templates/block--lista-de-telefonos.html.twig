@@ -1,0 +1,19 @@
+{# modules/custom/xtractr/templates/block--lista-de-telefonos.html.twig #}
+
+<div class="lista-telefonos">
+  {# Verificamos si hay un título y lo mostramos #}
+  {% if title %}
+    <h2>{{ title }}</h2>
+  {% endif %}
+
+  {# Verificamos si hay ítems para mostrar #}
+  {% if items %}
+    <ul>
+      {% for item in items %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay teléfonos para mostrar.</p>
+  {% endif %}
+</div>
