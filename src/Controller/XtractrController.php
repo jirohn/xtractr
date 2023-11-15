@@ -178,14 +178,28 @@ public function updateEnviado($nid) {
     // Construir la URL de WhatsApp.
     $telefono = $node->get('field_telefono')->value;
     $mensajes = array(
-      "¿Quieres más llamadas y visibilidad para tus anuncios? En TuTeAnuncias somos expertos en eso. 🚀 ¿Te gustaría ver los packs y potenciar tu éxito? Háblame!!",
-      "¿Buscas aumentar tus llamadas y destacar en la visibilidad de tus anuncios? Descubre cómo, en TuTeAnuncias lo hacemos por ti. 📈 ¿Interesad@? Contáctame ahora.",
-      "¡Optimiza tus anuncios con más llamadas y visibilidad! En TuTeAnuncias tenemos las mejores tarifas. 💼 ¿List@ para potenciar tu éxito? Házmelo saber!",
-      "¿Quieres destacar tus anuncios con más llamadas y visibilidad? En TuTeAnuncias te ayudamos a lograrlo. 🌟 Descubre nuestros packs y potencia tu éxito. ¡Háblame!",
-      "Optimiza tu presencia online: más llamadas, más visibilidad. En TuTeAnuncias tenemos la fórmula para tu éxito. 💪 ¿Listo para dar el siguiente paso? Contáctame ahora.",
-      "¿Buscas estrategias efectivas para aumentar tus llamadas y visibilidad? En TuTeAnuncias somos la clave. 🚀 Descubre cómo podemos potenciar tus anuncios. Háblame!"
-
+      "¡Hola! ¿Te gustaría descubrir cómo incrementar tu visibilidad y recibir más llamadas de clientes interesados? 😊 ¡Contáctame!",
+      "¿Quieres destacarte y atraer más llamadas de potenciales clientes? Descubre cómo puedo ayudarte. 📈 ¡Háblame!",
+      "¡Hola! ¿Interesado en aumentar tu alcance y recibir más llamadas de clientes interesados? Estoy aquí para apoyarte. 🌟 ¡Contacta conmigo!",
+      "¿Buscas mejorar tu visibilidad y obtener más llamadas de clientes? Descubre cómo puedo hacerlo posible. 💪 ¡Contáctame ahora!",
+      "Hola, ¿te interesa ampliar tu presencia y recibir más llamadas de clientes interesados? Estoy aquí para ayudarte. 🚀 ¡Háblame!",
+      "¡Quieres aumentar tu alcance y recibir más llamadas de clientes potenciales? Descubre cómo puedo hacerlo realidad para ti. 😊 ¡Contáctame!",
+      "¿Necesitas resaltar y recibir más llamadas de potenciales clientes? Estoy aquí para potenciar tu presencia. 📈 ¡Háblame!",
+      "Hola, ¿te gustaría mejorar tu visibilidad y obtener más llamadas de clientes interesados? Estoy aquí para apoyarte. 🌟 ¡Contacta conmigo!",
+      "¿Quieres incrementar tu presencia y recibir más llamadas de clientes? Descubre cómo puedo ayudarte. 💪 ¡Contáctame ahora!",
+      "¡Necesitas destacar y recibir más llamadas de clientes potenciales? Estoy aquí para hacerlo posible. 🚀 ¡Háblame!",
+      "Hola, ¿te interesa ampliar tu visibilidad y recibir más llamadas de clientes interesados? Descubre cómo puedo ayudarte. 😊 ¡Contáctame!",
+      "¿Quieres aumentar tu visibilidad y obtener más llamadas de clientes potenciales? Estoy aquí para hacerlo realidad. 📈 ¡Háblame!",
+      "¡Quieres resaltar y recibir más llamadas de clientes interesados? Descubre cómo puedo potenciar tu presencia. 🌟 ¡Contacta conmigo!",
+      "Hola, ¿te gustaría mejorar tu alcance y obtener más llamadas de clientes? Estoy aquí para apoyarte. 💪 ¡Contáctame ahora!",
+      "¿Necesitas incrementar tu presencia y recibir más llamadas de clientes potenciales? Descubre cómo puedo hacerlo posible. 🚀 ¡Háblame!",
+      "¡Quieres destacar y recibir más llamadas de clientes interesados? Estoy aquí para ayudarte. 😊 ¡Contáctame!",
+      "Hola, ¿te interesa amplificar tu presencia y obtener más llamadas de clientes potenciales? Descubre cómo puedo hacerlo realidad. 📈 ¡Háblame!",
+      "¿Quieres mejorar tu visibilidad y recibir más llamadas de clientes interesados? Estoy aquí para apoyarte. 🌟 ¡Contacta conmigo!",
+      "¡Necesitas aumentar tu alcance y recibir más llamadas de clientes? Descubre cómo puedo ayudarte. 💪 ¡Contáctame ahora!",
+      "Hola, ¿te gustaría resaltar y obtener más llamadas de clientes potenciales? Estoy aquí para hacerlo posible. 🚀 ¡Háblame!"
   );
+  
     $mensajes[array_rand($mensajes)];
 
     $whatsapp_url = "whatsapp://send?phone=34{$telefono}&text=". urlencode($mensajes[array_rand($mensajes)]);

@@ -44,4 +44,60 @@
     
 
 }
+/* input-ai */
+#input-ai {
+    /* ocupa el 70% del espacio */
+    width: 70%;
+    /* le damos un borde */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* le damos un color de fondo */
+    background-color: #fff;
+}
+/* enviar-ai */
+#enviar-ai {
+    /* Tus estilos aquí */
+    /* damos estilo de boton azul */
+    background-color: #007bff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    text-transform: uppercase;
+    /* lo pegamos a la derecha */
+    float: right;
 
+    /* le damos un hover */
+    transition: all 0.3s ease-in-out;
+}
+#openai-chat {
+    height: 400px; /* Ajusta la altura según tus preferencias */
+    overflow-y: auto;
+    /* no puede salirse nada por los laterales */
+    overflow-x: hidden;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .message {
+    margin: 5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 70%;
+    /* lo colocamos en la parte inferior como el chat de whatsapp */
+    align-self: flex-end;
+
+  }
+  
+  .user-message {
+    background-color: #e0f7fa;
+    align-self: flex-end;
+  }
+  
+  .bot-message {
+    background-color: #9b9b9b;
+  }
+  
