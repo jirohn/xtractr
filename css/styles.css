@@ -30,7 +30,7 @@
 }
 .xtractr-telefono-container {
     /* estilizamos y damos forma de tabla a lo que hay en el interior */
-    display: table;
+    display: inline-table;
     width: 100%;
     /* ponemos bordes y añadimos margenes */
     border: 1px solid #ccc;
@@ -44,15 +44,37 @@
     
 
 }
-/* input-ai */
-#input-ai {
-    /* ocupa el 70% del espacio */
-    width: 70%;
+/* chat-input */
+#chat-input {
+    /* Tus estilos aquí */
     /* le damos un borde */
     border: 1px solid #ccc;
     border-radius: 5px;
     /* le damos un color de fondo */
     background-color: #fff;
+    /*se coloca en la parte inferior del div que lo rodea */
+    /* le damos un margen */
+    margin-top: 10px;
+    /* le damos un ancho del 100% */
+    width: 100%;
+    /* le damos un padding */
+    padding: 10px;
+    /* colocamos el contenido uno al lado del otro */
+    /* no puede superar el tamaño del div que lo rodea */
+    box-sizing: border-box;
+
+}
+/* input-ai */
+#input-ai {
+    /* ocupa el 70% del espacio */
+    /* le damos un borde */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* le damos un color de fondo */
+    background-color: #fff;
+    /*se coloca en la parte inferior del div que lo rodea */
+
+
 }
 /* enviar-ai */
 #enviar-ai {
@@ -63,10 +85,11 @@
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    padding: 10px;
     text-transform: uppercase;
-    /* lo pegamos a la derecha */
+    /* lo pegamos a la derecha en la parte inferior */
     float: right;
+
+
 
     /* le damos un hover */
     transition: all 0.3s ease-in-out;
@@ -76,7 +99,7 @@
     overflow-y: auto;
     /* no puede salirse nada por los laterales */
     overflow-x: hidden;
-
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
