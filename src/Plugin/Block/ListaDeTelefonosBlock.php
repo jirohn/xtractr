@@ -30,7 +30,7 @@ class ListaDeTelefonosBlock extends BlockBase {
         ->condition('type', 'telefono')
         ->condition('uid', $current_user->id())
         ->condition('field_enviado', FALSE)
-        ->accessCheck(TRUE);
+        ->accessCheck(FALSE);
     // Definir un número de elementos por página.
     $pager_limit = 10;
     $query->pager($pager_limit);
@@ -61,7 +61,6 @@ class ListaDeTelefonosBlock extends BlockBase {
   // enviamos el item 1 del build al log
   $build['#attached']['library'][] = 'xtractr/estilos-bloque';
 
-  \Drupal::logger('xtractr')->notice($build['#items'][1]['#markup']);
   return $build;
   }
 

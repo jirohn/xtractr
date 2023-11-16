@@ -1,5 +1,5 @@
 <?php
-
+use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\field\Entity\FieldConfig;
@@ -31,7 +31,12 @@ function createContentTypeAndFields() {
         $tipo_clientes = NodeType::create(['type' => 'clientes', 'name' => 'Clientes']);
         $tipo_clientes->save();
     }
-
+    if (!NodeType::load('mensajes')) {
+        $tipo_mensajes = NodeType::create(['type' => 'mensajes', 'name' => 'Mensajes']);
+        $tipo_mensajes->save();
+    }
+    // Crear y configurar campos para 'mensajes'.
+    createAndConfigureField('field_mensaje', 'node', 'mensajes', 'text_long', 'Mensaje');
     // Crear y configurar campos.
     createAndConfigureField('field_telefono', 'node', 'telefono', 'string', 'Número de Teléfono');
     createAndConfigureField('field_enviado', 'node', 'telefono', 'boolean', 'Enviado');
@@ -67,6 +72,8 @@ function createAndConfigureField($field_name, $entity_type, $bundle, $field_type
 }
 
 function configureFieldDisplays() {
+     // Configurar el campo 'Mensaje' del tipo de contenido 'Mensajes'.
+     configureFieldDisplay('mensajes', 'field_mensaje', 'text_textarea_with_summary', 'text_default');
     configureFieldDisplay('telefono', 'field_telefono', 'string_textfield', 'string');
     configureFieldDisplay('telefono', 'field_enviado', 'boolean_checkbox', 'boolean');
     configureFieldDisplay('pagina_de_extraccion', 'field_urlextract', 'string_textfield', 'string');
@@ -111,26 +118,46 @@ function configureFieldDisplay($bundle, $field_name, $form_display_type, $view_d
  * Implements hook_uninstall().
  */
 function xtractr_uninstall() {
-  // Eliminar los campos creados por el módulo.
-  $fields_to_delete = ['field_telefono', 'field_enviado', 'field_urlextract'];
-  foreach ($fields_to_delete as $field_name) {
-      if ($field_storage = FieldStorageConfig::loadByName('node', $field_name)) {
-          $field_storage->delete();
-      }
-  }
+    // Eliminar todos los nodos de los tipos de contenido creados por el módulo.
+$types = ['telefono', 'pagina_de_extraccion', 'clientes', 'mensajes'];
+    foreach ($types as $type) {
+        $nids = \Drupal::entityQuery('node')->condition('type', $type)->accessCheck(FALSE)->execute();
+        $nodes = Node::loadMultiple($nids);
+        foreach ($nodes as $node) {
+            $node->delete();
+        }
 
-  // Eliminar los tipos de contenido creados por el módulo.
-  $content_types_to_delete = ['telefono', 'pagina_de_extraccion'];
-  foreach ($content_types_to_delete as $content_type) {
-      if ($type = NodeType::load($content_type)) {
-          $type->delete();
-      }
-  }
-  // eliminamos el tipo de contenido clientes
-    $content_types_to_delete = ['clientes'];
-    foreach ($content_types_to_delete as $content_type) {
-        if ($type = NodeType::load($content_type)) {
-            $type->delete();
+        // Eliminar el tipo de contenido.
+        if ($content_type = NodeType::load($type)) {
+            $content_type->delete();
+        }
+    }
+
+    // Definir todos los campos a eliminar.
+    $fields_to_delete = [
+        'node.telefono.field_mensaje',
+        'node.telefono.field_telefono', 
+        'node.telefono.field_enviado', 
+        'node.pagina_de_extraccion.field_urlextract',
+        'node.clientes.field_nombre', 
+        'node.clientes.field_edad', 
+        'node.clientes.field_ciudad', 
+        'node.clientes.field_telefono',
+        'node.clientes.field_email', 
+        'node.clientes.field_tipo_tarifa',
+        'node.clientes.field_fecha_contratacion',
+        'node.clientes.field_observaciones',
+        // Agregar aquí otros campos que hayas creado.
+    ];
+
+    // Eliminar los campos y sus almacenamientos.
+    foreach ($fields_to_delete as $field_name) {
+        list($entity_type, $bundle, $field) = explode('.', $field_name);
+        if ($field_config = FieldConfig::loadByName($entity_type, $bundle, $field)) {
+            $field_config->delete();
+        }
+        if ($field_storage = FieldStorageConfig::loadByName($entity_type, $field)) {
+            $field_storage->delete();
         }
     }
 }

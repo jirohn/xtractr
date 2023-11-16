@@ -38,7 +38,7 @@
   };
 })(jQuery, Drupal);
 (function ($) {
-  const apiKey = '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'; // Reemplaza con tu clave de API
+  const apiKey = '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'; // Reemplaza con tu clave de API
   const $chatContainer = $('#openai-chat');
 
   $(document).ready(function () {

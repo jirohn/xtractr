@@ -163,56 +163,49 @@ public function extractFromNode($nid) {
     return new JsonResponse(['error' => 'El nodo no es válido o no es accesible']);
   }
 }
-/**
- * Controller action for sending a WhatsApp message.
- */
 public function updateEnviado($nid) {
   $node = \Drupal\node\Entity\Node::load($nid);
 
   if ($node && $node->bundle() == 'telefono' && $node->hasField('field_enviado')) {
-    // Actualizar el nodo.
+      // Actualizar el nodo.
+      $node->set('field_enviado', TRUE);
+      $node->save();
 
-    $node->set('field_enviado', TRUE);
-    $node->save();
+      // Construir la URL de WhatsApp.
+      $telefono = $node->get('field_telefono')->value;
 
-    // Construir la URL de WhatsApp.
-    $telefono = $node->get('field_telefono')->value;
-    $mensajes = array(
-      "¡Hola! ¿Te gustaría descubrir cómo incrementar tu visibilidad y recibir más llamadas de clientes interesados? 😊 ¡Contáctame!",
-      "¿Quieres destacarte y atraer más llamadas de potenciales clientes? Descubre cómo puedo ayudarte. 📈 ¡Háblame!",
-      "¡Hola! ¿Interesado en aumentar tu alcance y recibir más llamadas de clientes interesados? Estoy aquí para apoyarte. 🌟 ¡Contacta conmigo!",
-      "¿Buscas mejorar tu visibilidad y obtener más llamadas de clientes? Descubre cómo puedo hacerlo posible. 💪 ¡Contáctame ahora!",
-      "Hola, ¿te interesa ampliar tu presencia y recibir más llamadas de clientes interesados? Estoy aquí para ayudarte. 🚀 ¡Háblame!",
-      "¡Quieres aumentar tu alcance y recibir más llamadas de clientes potenciales? Descubre cómo puedo hacerlo realidad para ti. 😊 ¡Contáctame!",
-      "¿Necesitas resaltar y recibir más llamadas de potenciales clientes? Estoy aquí para potenciar tu presencia. 📈 ¡Háblame!",
-      "Hola, ¿te gustaría mejorar tu visibilidad y obtener más llamadas de clientes interesados? Estoy aquí para apoyarte. 🌟 ¡Contacta conmigo!",
-      "¿Quieres incrementar tu presencia y recibir más llamadas de clientes? Descubre cómo puedo ayudarte. 💪 ¡Contáctame ahora!",
-      "¡Necesitas destacar y recibir más llamadas de clientes potenciales? Estoy aquí para hacerlo posible. 🚀 ¡Háblame!",
-      "Hola, ¿te interesa ampliar tu visibilidad y recibir más llamadas de clientes interesados? Descubre cómo puedo ayudarte. 😊 ¡Contáctame!",
-      "¿Quieres aumentar tu visibilidad y obtener más llamadas de clientes potenciales? Estoy aquí para hacerlo realidad. 📈 ¡Háblame!",
-      "¡Quieres resaltar y recibir más llamadas de clientes interesados? Descubre cómo puedo potenciar tu presencia. 🌟 ¡Contacta conmigo!",
-      "Hola, ¿te gustaría mejorar tu alcance y obtener más llamadas de clientes? Estoy aquí para apoyarte. 💪 ¡Contáctame ahora!",
-      "¿Necesitas incrementar tu presencia y recibir más llamadas de clientes potenciales? Descubre cómo puedo hacerlo posible. 🚀 ¡Háblame!",
-      "¡Quieres destacar y recibir más llamadas de clientes interesados? Estoy aquí para ayudarte. 😊 ¡Contáctame!",
-      "Hola, ¿te interesa amplificar tu presencia y obtener más llamadas de clientes potenciales? Descubre cómo puedo hacerlo realidad. 📈 ¡Háblame!",
-      "¿Quieres mejorar tu visibilidad y recibir más llamadas de clientes interesados? Estoy aquí para apoyarte. 🌟 ¡Contacta conmigo!",
-      "¡Necesitas aumentar tu alcance y recibir más llamadas de clientes? Descubre cómo puedo ayudarte. 💪 ¡Contáctame ahora!",
-      "Hola, ¿te gustaría resaltar y obtener más llamadas de clientes potenciales? Estoy aquí para hacerlo posible. 🚀 ¡Háblame!"
-  );
-  
-    $mensajes[array_rand($mensajes)];
+      // Obtener mensajes del usuario actual.
+      $current_user = \Drupal::currentUser();
+      $query = \Drupal::entityQuery('node')
+          ->condition('type', 'mensajes')
+          ->condition('uid', $current_user->id())
+          ->accessCheck(FALSE);
 
-    $whatsapp_url = "whatsapp://send?phone=34{$telefono}&text=". urlencode($mensajes[array_rand($mensajes)]);
-    // Redirigir a la URL de WhatsApp cuando el valor ha sido cambiado correctamente, si no no
-    // redirigir.
-    return new TrustedRedirectResponse($whatsapp_url);
+      $mensajes_nids = $query->execute();
+      $mensajes_nodes = \Drupal\node\Entity\Node::loadMultiple($mensajes_nids);
 
-   
+      $mensajes = [];
+      foreach ($mensajes_nodes as $mensaje_node) {
+          if ($mensaje_node->hasField('field_mensaje') && !$mensaje_node->get('field_mensaje')->isEmpty()) {
+              $texto_mensaje = $mensaje_node->get('field_mensaje')->value;
+              // Limpiar el texto del mensaje para eliminar etiquetas HTML.
+              $texto_limpio = strip_tags($texto_mensaje);
+              $mensajes[] = $texto_limpio;
+          }
+      }
+
+      // Elegir un mensaje al azar si hay alguno disponible.
+      $mensaje_seleccionado = !empty($mensajes) ? $mensajes[array_rand($mensajes)] : 'Mensaje predeterminado';
+
+      $whatsapp_url = "whatsapp://send?phone=34{$telefono}&text=" . urlencode($mensaje_seleccionado);
+      // Redirigir a la URL de WhatsApp.
+      return new TrustedRedirectResponse($whatsapp_url);
   } else {
-    // Manejar el caso de error.
-    return new JsonResponse(['error' => 'Nodo no válido o no encontrado']);
+      // Manejar el caso de error.
+      return new JsonResponse(['error' => 'Nodo no válido o no encontrado']);
   }
 }
+
 
   /**
    * Controller action for changing the data source.
