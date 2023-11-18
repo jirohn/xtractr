@@ -3,18 +3,18 @@
     display: table;
     width: 100%;
     /* ponemos bordes y añadimos margenes */
-    border: 1px solid #9e9e9e;
     background-color: #5e9cd4;
     border-radius: 5px;
-    margin: 10px 0;
-    padding: 10px;
+    padding: .5em;
+    margin: .2em;
+    font-size: larger;
 
 }
 
 .xtractr-enviar {
     /* Tus estilos aquí */
     /* damos estilo de boton azul */
-    background-color: #007bff;
+    background-color: #83c67475;
     border: 1px solid #000000;
     border-radius: 5px;
     color: #fff;
@@ -23,17 +23,26 @@
     text-transform: uppercase;
     /* lo pegamos a la derecha */
     float: right;
-
-
+    padding: .5em;
+    /*le damos tiempo a la transicion */
+    transition: all 0.3s ease-in-out;
+    
+}
+/* al pasar el raton por encima de enviar */
+.xtractr-enviar:hover {
+    /*le damos tiempo a la transicion */
+    transition: all 0.3s ease-in-out;
+    /* le damos un color de fondo */
+    background-color: #83c674;
+    /* aumentamos ligeramente el tamaño */
+    transform: scale(1.1);
+    
 
 }
 .xtractr-telefono-container {
     /* estilizamos y damos forma de tabla a lo que hay en el interior */
     display: inline-table;
     width: 90%;
-    /* ponemos bordes y añadimos margenes */
-    border: 1px solid #ccc;
-    border-radius: 5px;
     margin: 10px 0;
 
     /* lo hacemos transparente para el fade */
@@ -78,7 +87,7 @@
 #enviar-ai {
     /* Tus estilos aquí */
     /* damos estilo de boton azul */
-    background-color: #007bff;
+    background-color: #83c674!important;
     border: 1px solid #000000;
     border-radius: 5px;
     color: #fff;
@@ -86,6 +95,8 @@
     text-transform: uppercase;
     /* lo pegamos a la derecha en la parte inferior */
     float: right;
+    padding: 10px;
+
 
 
 
@@ -93,14 +104,15 @@
     transition: all 0.3s ease-in-out;
 }
 #openai-chat {
-    height: 400px; /* Ajusta la altura según tus preferencias */
+    height: 600px; /* Ajusta la altura según tus preferencias */
     overflow-y: auto;
     /* no puede salirse nada por los laterales */
     overflow-x: hidden;
-    width: 100%;
+    width: 92%;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
+    margin-right: 2em!important;
   }
   
   .message {

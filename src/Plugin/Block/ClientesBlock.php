@@ -25,6 +25,8 @@ class ClientesBlock extends BlockBase {
     $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
         ->condition('type', 'clientes')
+        // el usuario conectado debe ser el dueño
+        ->condition('uid', \Drupal::currentUser()->id())
         ->accessCheck(TRUE)
         ->sort('created', 'DESC'); // Ordenar por fecha de creación, si es necesario.
 
