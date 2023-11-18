@@ -3,7 +3,8 @@
     display: table;
     width: 100%;
     /* ponemos bordes y añadimos margenes */
-    border: 1px solid #ccc;
+    border: 1px solid #9e9e9e;
+    background-color: #5e9cd4;
     border-radius: 5px;
     margin: 10px 0;
     padding: 10px;
@@ -18,29 +19,26 @@
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
-    padding: 10px;
+    margin-right: 1em;
     text-transform: uppercase;
     /* lo pegamos a la derecha */
     float: right;
 
-    /* le damos un hover */
-    transition: all 0.3s ease-in-out;
 
 
 }
 .xtractr-telefono-container {
     /* estilizamos y damos forma de tabla a lo que hay en el interior */
     display: inline-table;
-    width: 100%;
+    width: 90%;
     /* ponemos bordes y añadimos margenes */
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 10px 0;
-    padding: 10px;
+
     /* lo hacemos transparente para el fade */
-    background-color: rgba(255, 255, 255, 0.5);
-    /* le damos un hover */
-    transition: all 0.3s ease-in-out;
+
+
     
 
 }
