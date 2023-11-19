@@ -43,8 +43,13 @@ class ListaDeTelefonosBlock extends BlockBase {
       if ($node->hasField('field_telefono') && !$node->get('field_telefono')->isEmpty()) {
         $telefono = $node->get('field_telefono')->value;
         $enviar_url = Url::fromRoute('xtractr.update_enviado', ['nid' => $node->id()])->toString();
+        $delete_url = Url::fromRoute('entity.node.delete_form', ['node' => $node->id()])->toString();
         $enviar_link = '<a href="' . $enviar_url . '" class="xtractr-enviar">' . $this->t('Enviar WhatsApp') . '</a>';
-        $items[] = ['#markup' => '<div class="xtractr-telefono">' . $telefono . ' ' . $enviar_link . '</div>'];
+        $delete_link = '<a href="' . $delete_url . '" class="xtractr-eliminar">' . 'X' . '</a>';
+
+        $items[] = ['#markup' => '<div class="xtractr-telefono">' . $delete_link .
+        ' Num: ' . $telefono . 
+         ' ' . $enviar_link . '</div>'];
     }
     }
     

@@ -38,7 +38,7 @@
   };
 })(jQuery, Drupal);
 (function ($) {
-  const apiKey = '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'; // Reemplaza con tu clave de API
+  const apiKey = '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'; // Reemplaza con tu clave de API
   const $chatContainer = $('#openai-chat');
 
   $(document).ready(function () {
@@ -94,9 +94,10 @@
         },
         data: JSON.stringify({
           prompt: message,
-          max_tokens: 250,
-          temperature: 1, // Conserva la respuesta enfocada
+          max_tokens: 150,
+          temperature: 0.7, // Conserva la respuesta enfocada
           // Penaliza ligeramente la repetición de temas
+          frequency_penalty: 0.5,
         }),
         success: function (response) {
           const answer = response.choices[0].text.trim();

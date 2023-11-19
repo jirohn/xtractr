@@ -43,9 +43,13 @@ class XtractrBlock extends BlockBase {
     foreach ($nodes as $node) {
         $node_link = $node->toLink()->toString();
         $extract_url = Url::fromRoute('xtractr.extract_from_node', ['nid' => $node->id()]);
-        $extract_link = Link::fromTextAndUrl($this->t('Extraer'), $extract_url)->toString();
+        $extract_link = '<a href="' . $extract_url->toString() . '" class="xtractr-extract-button">' . $this->t('Extraer') . '</a>';
+        $delete_url = Url::fromRoute('entity.node.delete_form', ['node' => $node->id()]);
+        $delete_link = '<a href="' . $delete_url->toString() . '" class="xtractr-delete-button">' . 'X' . '</a>';
         $items[] = [
-            '#markup' => $node_link . ' ' . $extract_link,
+            '#markup' => '<div class="xtractr-nodo-item">' .$delete_link . 
+            ' '. $node_link . 
+            ' ' . $extract_link . '</div>',
         ];
     }
 

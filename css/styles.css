@@ -11,12 +11,13 @@
     font-weight: bold;
 
 }
+
 /* xtractor-enviar al iniciar la pagina, hace una animacion de transicion */
 
 .xtractr-enviar {
     /* Tus estilos aquí */
     /* damos estilo de boton azul */
-    background-color: #83c67475;
+    background-color: #a5c59d;
 
     border-radius: 5px;
     color: #fff;
@@ -29,7 +30,7 @@
     text-decoration: none;
     
     float: right;
-    padding: .5em;
+    padding: 1em;
     /*le damos tiempo a la transicion */
     transition: all 0.3s ease-in-out;
     
@@ -37,7 +38,7 @@
 /* al pasar el raton por encima de enviar */
 .xtractr-enviar:hover {
     /*le damos tiempo a la transicion */
-    transition: all 0.3s ease-in-out;
+    transition: all 0.1s ease-in-out;
     /* le damos un color de fondo */
     background-color: #83c674;
     /* aumentamos ligeramente el tamaño */
@@ -46,16 +47,27 @@
 
 }
 .xtractr-telefono-container {
-    /* estilizamos y damos forma de tabla a lo que hay en el interior */
-    display: inline-table;
-    width: 90%;
-    margin: 10px 0;
-
-    /* lo hacemos transparente para el fade */
-
-
     
-
+  /* le damos al container, un tono mas claro y un borde redondeado */
+  
+}
+.xtractr-telefono{
+  /*los items dentro de este div deben ir en linea */
+  display: flex;
+  /* deben abarcar todo el ancho de manera justificada */
+  justify-content: space-between;
+  /* deben estar alineados al centro */
+  align-items: center;
+  direction: row;
+  width: 100%;
+  background-color: #5C9BD331;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+}
+.xtractr-enviar{
+  float: right;
 }
 /* chat-input */
 #chat-input {
@@ -90,11 +102,8 @@
     height: 500px; /* Ajusta la altura según tus preferencias */
     overflow-y: auto;
     overflow-x: hidden;
-    width: 92%;
-    border: 1px solid #ccc;
     background-color:antiquewhite;
     background-image: url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png);
-    border-radius: 5px;
     border-radius: 10px 10px 0px 0px;
   }
   
@@ -106,12 +115,350 @@
     align-self: flex-end;
   }
   
-  .user-message {
-    background-color: #e0f7fa;
-    align-self: flex-end;
+  .xtractr-clientes-block {
+    width: 100%;
+}
+/* Estilo para el recuadro de cada cliente */
+.xtractr-cliente-item {
+  /*los items dentro de este div deben ir en linea */
+  display: flex;
+  /* deben abarcar todo el ancho de manera justificada */
+  justify-content: space-between;
+  /* deben estar alineados al centro */
+  align-items: center;
+  direction: row;
+  width: 100%;
+  background-color: #5C9BD331;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+/* Estilo para el botón de editar */
+.xtractr-edit-button {
+  background-color: #5C9BD3;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 5px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo para el botón de eliminar */
+.xtractr-delete-button {
+  background-color: #a188a7;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilos adicionales para los botones al pasar el cursor */
+.xtractr-edit-button:hover {
+  background-color: darken(#5C9BD3, 10%);
+}
+
+.xtractr-delete-button:hover {
+  background-color: darken(#9455A2, 10%);
+}
+  /* si esta en un movil, el header crece para mostrar el menu */
+  .xtractr-eliminar {
+    background-color: #a188a7;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.xtractr-eliminar:hover {
+    background-color: darken(#9455a2, 10%);
+}
+.xtractr-editar-mensaje, .xtractr-eliminar-mensaje {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  font-size: 0.9em;
+}
+.xtractr-mensaje-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  direction: row;
+  width: 100%;
+  background-color: #5C9BD331;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #9455A2;
+}
+.xtractr-editar-mensaje {
+  background-color: #5C9BD3; /* Verde */
+}
+
+.xtractr-eliminar-mensaje {
+  background-color: #a188a7; /* Púrpura */
+}
+
+.xtractr-editar-mensaje:hover {
+  background-color: darken(#81C672, 10%);
+}
+
+.xtractr-eliminar-mensaje:hover {
+  background-color: darken(#9455A2, 10%);
+}
+.xtractr-nodo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  direction: row;
+  width: 100%;
+  background-color: #5C9BD331;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color: #9455A2;
+}
+.xtractr-extract-button {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+  background-color: #5C9BD3; /* Color azul */
+  font-size: 0.9em;
+}
+
+.xtractr-extract-button:hover {
+  background-color: darken(#5C9BD3, 10%);
+}
+.user-message{
+  /* le damos estilo de whatsapp como si fuera el mensaje enviado por el mi */
+  background-color: #dcf8c6;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  min-width: 50%;
+  max-width: 70%;
+  float: left;
+
+}
+.bot-message{
+  /* le damos estilo de whatsapp como si fuera el mensaje enviado por el bot */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+  max-width: 70%;
+  float: right;
+}
+/* si estamos en un movil, cambiamos todo y lo adaptamos para que se vea correctamente */
+@media screen and (max-width: 600px) {
+  /* Estilos para el contenedor principal */
+  .main-content {
+    display: flex; /* Utiliza flex en lugar de inline-flex */
+    flex-direction: column; /* Cambia la dirección de los elementos */
+    margin: 10px;
+    padding: 10px;
   }
-  
-  .bot-message {
-    background-color: #9b9b9b;
+  /* Estilos para el logo */
+  .logo img {
+    width: 3em;
+    height: 3em;
+  }
+  /* Estilos para la navegación */
+  .navigation {
+    float: right;
+    border-radius: 20px;
+    margin: 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px;
+  }
+  /* Estilos para los enlaces de navegación */
+  .navigation a {
+    padding: 10px;
+    margin: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0275d880;
+    border-radius: 10%;
+  }
+  /* Estilos para el encabezado */
+  .header {
+    display: inline-table;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    /* le damos un degradado a blanco hacia abajo */
+    background-image: linear-gradient(to bottom, #5C9BD3, #fff);
+  }
+  /* Estilos para el footer */
+  footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  /* Estilos para el recuadro de cada cliente */
+  .xtractr-cliente-item {
+    /*los items dentro de este div deben ir en linea */
+    display: flex;
+    /* deben abarcar todo el ancho de manera justificada */
+    justify-content: space-between;
+    /* deben estar alineados al centro */
+    align-items: center;
+    direction: row;
+    width: 100%;
+    background-color: #5C9BD331;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: white;
+  }
+  /* Estilo para el botón de editar */
+  .xtractr-edit-button {
+    background-color: #5C9BD3;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 5px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  /* Estilo para el botón de eliminar */
+  .xtractr-delete-button {
+    background-color: #a188a7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  /* Estilos adicionales para los botones al pasar el cursor */
+  .xtractr-edit-button:hover {
+    background-color: darken(#5C9BD3, 10%);
+  }
+  .xtractr-delete-button:hover {
+    background-color: darken(#9455A2, 10%);
   }
   /* si esta en un movil, el header crece para mostrar el menu */
+  .xtractr-eliminar {
+    background-color: #a188a7;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-left: 5px;
+    display: inline-block;
+  }
+  .xtractr-eliminar:hover {
+    background-color: darken(#9455a2, 10%);
+  }
+  .xtractr-editar-mensaje, .xtractr-eliminar-mensaje {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em;
+  }
+  .xtractr-mensaje-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    direction: row;
+    width: 100%;
+    background-color: #5C9BD331;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #9455A2;
+  }
+  .xtractr-editar-mensaje {
+    background-color: #5C9BD3; /* Verde */
+  }
+  .xtractr-eliminar-mensaje {
+    background-color: #a188a7; /* Púrpura */
+  }
+  .xtractr-editar-mensaje:hover {
+    background-color: darken(#81C672, 10%);
+  }
+  .xtractr-eliminar-mensaje:hover {
+    background-color: darken(#9455A2, 10%);
+  }
+  .xtractr-nodo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    direction: row;
+    width: 100%;
+    background-color: #5C9BD331;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #5e9cd431;
+  }
+  .xtractr-extract-button {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    background-color: #5C9BD3; /* Color azul */
+    font-size: 0.9em;
+  }
+  .xtractr-extract-button:hover {
+    background-color: darken(#5C9BD3, 10%);
+  }
+  .user-message{
+    /* le damos estilo de whatsapp como si fuera el mensaje enviado por el mi */
+    background-color: #dcf8c6;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    min-width: 50%;
+    max-width: 70%;
+    float: left;
+  
+  }
+  .bot-message{
+    /* le damos estilo de whatsapp como si fuera el mensaje enviado por el bot */
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    max-width: 70%;
+    float: right;
+  }
+  .xtractr-telefono {
+    /* le damos estilos de tabla */
+    display: table;
+    width: 100%;
+    /* ponemos bordes y añadimos margenes */
+    background-color: #5e9cd431;
+    border-radius: 5px;
+    padding: .5em;
+    margin: .2em;
+    font-size: larger;
+    font-weight: bold;
+  
+  }
+}

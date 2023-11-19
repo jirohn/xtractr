@@ -25,7 +25,6 @@ class ClientesBlock extends BlockBase {
     $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
         ->condition('type', 'clientes')
-        // el usuario conectado debe ser el dueño
         ->condition('uid', \Drupal::currentUser()->id())
         ->accessCheck(TRUE)
         ->sort('created', 'DESC'); // Ordenar por fecha de creación, si es necesario.
@@ -35,16 +34,26 @@ class ClientesBlock extends BlockBase {
     $items = [];
 
     foreach ($nodes as $node) {
-        $nombre = $node->get('field_nombre')->value;
-        // el nombre debe tener un enlace que dirija al nodo
         $nombre = $node->toLink()->toString();
-        // Añadir otros campos del tipo de contenido clientes
         $tipo_tarifa = $node->get('field_tipo_tarifa')->value;
         $fecha_contratacion = $node->get('field_fecha_contratacion')->value;
         $observaciones = $node->get('field_observaciones')->value;
+
+        $edit_url = Url::fromRoute('entity.node.edit_form', ['node' => $node->id()]);
+        $delete_url = Url::fromRoute('entity.node.delete_form', ['node' => $node->id()]);
+
+        $edit_button = '<a href="' . $edit_url->toString() . '" class="xtractr-edit-button">' . t('Edit') . '</a>';
+        $delete_button = '<a href="' . $delete_url->toString() . '" class="xtractr-delete-button">' . 'X' . '</a>';
+        // sacamos solo la fecha sin la hora del campo fecha_contratacion
+        $fecha_contratacion = substr($fecha_contratacion, 0, 10);
+        // resumimos el resultado de observaciones en 20 caracteres y lo finalizamos con ...
+        $observaciones = substr($observaciones, 0, 20) . '...';
         $items[] = [
-            
-            '#markup' => $nombre . ' ' . $tipo_tarifa . ' ' . $fecha_contratacion . ' ' . $observaciones,
+            '#markup' => '<div class="xtractr-cliente-item"><div class="nombre-cliente"><h3>' . $nombre . 
+            '</h3></div><div class="tarifa"><h3>Tipo de tarifa:</h3> ' . $tipo_tarifa . 
+            '</div><div class="fecha-contratacion"><h3>Fecha de contratacion:</h3> ' . $fecha_contratacion . 
+            '</div><div class="observaciones"><h3>Observaciones:</h3>' . $observaciones . 
+            '</div><div class="buttons">' . $edit_button . ' ' . $delete_button . '</div></div>',
         ];
     }
 
@@ -52,10 +61,10 @@ class ClientesBlock extends BlockBase {
         '#theme' => 'item_list',
         '#items' => $items,
         '#title' => $this->t('Lista de Clientes'),
-        // sin cache
         '#cache' => [
-            'max-age' => 0,
+            'max-age' => 0, // Sin cache
         ],
+
     ];
   }
 
