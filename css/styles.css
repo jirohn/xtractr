@@ -8,20 +8,26 @@
     padding: .5em;
     margin: .2em;
     font-size: larger;
+    font-weight: bold;
 
 }
+/* xtractor-enviar al iniciar la pagina, hace una animacion de transicion */
 
 .xtractr-enviar {
     /* Tus estilos aquí */
     /* damos estilo de boton azul */
     background-color: #83c67475;
-    border: 1px solid #000000;
+
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
     margin-right: 1em;
     text-transform: uppercase;
-    /* lo pegamos a la derecha */
+    /* le damos formato al texto */
+    font-weight: bold;
+    /* le quitamos el underline */
+    text-decoration: none;
+    
     float: right;
     padding: .5em;
     /*le damos tiempo a la transicion */
@@ -53,57 +59,59 @@
 }
 /* chat-input */
 #chat-input {
-    /* Tus estilos aquí */
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1.2em;
+    /* le damos un margen */
+    margin-right: 1em;
+    /* le damos un padding */
+    padding: 0.5em;
     /* le damos un borde */
-    border: 1px solid #ccc;
     border-radius: 5px;
     /* le damos un color de fondo */
     background-color: #fff;
-    /*se coloca en la parte inferior del div que lo rodea */
-    /* le damos un margen */
-    margin-top: 10px;
-    /* le damos un ancho del 100% */
-    width: 100%;
-    /* le damos un padding */
-    padding: 10px;
-    /* colocamos el contenido uno al lado del otro */
-    /* no puede superar el tamaño del div que lo rodea */
-    box-sizing: border-box;
+    /* le damos un color de texto */
+    color: #000;
+    /* le damos un borde */
 
 }
 /* input-ai */
 #input-ai {
-    /* ocupa el 70% del espacio */
+    /* le damos el estilo del input de texto de whatsapp */
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1.2em;
+    /* le damos un margen */
+    margin-right: 1em;
+    /* le damos un padding */
+    padding: 0.5em;
     /* le damos un borde */
-    border: 1px solid #ccc;
     border-radius: 5px;
     /* le damos un color de fondo */
     background-color: #fff;
-    /*se coloca en la parte inferior del div que lo rodea */
+    /* le damos un color de texto */
+    color: #000;
+    /* le damos un borde */
+
 
 
 }
 /* enviar-ai */
-#enviar-ai {
-    /* Tus estilos aquí */
-    /* damos estilo de boton azul */
-    background-color: #83c674!important;
-    border: 1px solid #000000;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    text-transform: uppercase;
-    /* lo pegamos a la derecha en la parte inferior */
-    float: right;
-    padding: 10px;
-
-
-
-
-    /* le damos un hover */
-    transition: all 0.3s ease-in-out;
+#send-btn {
+  /* le damos estilo del boton de enviar de whatsapp */
+  background-color: #83c674!important;
+  border: 1px solid #000000!important;
+  border-radius: 5px!important;
+  color: #fff!important;
+  cursor: pointer!important;
+  text-transform: uppercase!important;
+  float: right!important;
+  padding: 10px!important;
+  transition: all 0.3s ease-in-out!important;
 }
-#openai-chat {
+#openai-chat-box {
     height: 600px; /* Ajusta la altura según tus preferencias */
     overflow-y: auto;
     /* no puede salirse nada por los laterales */

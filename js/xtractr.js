@@ -38,18 +38,32 @@
   };
 })(jQuery, Drupal);
 (function ($) {
-  const apiKey = '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'; // Reemplaza con tu clave de API
+  const apiKey = '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'; // Reemplaza con tu clave de API
   const $chatContainer = $('#openai-chat');
 
   $(document).ready(function () {
+    /* animacion de entrada del globo de chat */
+    $chatContainer.fadeIn(2000);
+    /* animacion de entrada de la clase 'xtractor-enviar' */
+    $('.xtractr-enviar').fadeIn(2000);
+    // aparece desde la izquierda el div con la clase xtractr-telefono-container
+    $('.xtractr-telefono-container').animate({left: '0px'}, 2000);
+    // aparece desde la derecha el div con la clase xtractr-enviar
+    $('.xtractr-enviar').animate({right: '0px'}, 2000);
+
+    
+
+
+
     // un div para guardar el globo de chat
+    const $box = $('<div id="openai-chat-box"></div>');
     const $chat = $('<div id="chat-input"></div>');
     const $input = $('<input type="text" id="user-input input-ai" placeholder="¿Necesitas ayuda?" />');
-    const $button = $('<button id="send-btn enviar-ai">Enviar</button>');
+    const $button = $('<button id="send-btn enviar-ai">&gt;</button>');
     //introducimos input y boton en el div $chat
     $chat.append($input).append($button);
-
-    $chatContainer.append($chat);
+    //
+    $chatContainer.append($box).append($chat);
 
     $button.click(sendMessage);
     $input.keypress(function (e) {
@@ -68,6 +82,9 @@
     }
 
     function sendToOpenAI(message) {
+      // Construye un prompt más específico basado en el contexto de marketing
+      
+    
       $.ajax({
         method: 'POST',
         url: 'https://api.openai.com/v1/engines/davinci/completions',
@@ -77,17 +94,18 @@
         },
         data: JSON.stringify({
           prompt: message,
-          max_tokens: 120,
-          temperature: 0.9, // Ajusta la temperatura (entre 0 y 1)
-          frequency_penalty: 0.1, // Ajusta la penalización de frecuencia
-          presence_penalty: 0.1, // Ajusta la penalización de presencia
+          max_tokens: 250,
+          temperature: 1, // Conserva la respuesta enfocada
+          // Penaliza ligeramente la repetición de temas
         }),
         success: function (response) {
           const answer = response.choices[0].text.trim();
           appendMessage(answer, 'bot');
         },
-        error: function () {
-          appendMessage('Lo siento, hubo un error al procesar tu solicitud.', 'bot');
+        error: function (error) {
+          // Proporciona un mensaje de error más específico si es posible
+          const errorMessage = error.responseJSON ? error.responseJSON.error.message : 'Lo siento, hubo un error al procesar tu solicitud.';
+          appendMessage(errorMessage, 'bot');
         },
       });
     }
@@ -99,8 +117,8 @@
       } else {
         $message.addClass('bot-message');
       }
-      $chatContainer.append($message);
-      $chatContainer.scrollTop($chatContainer[0].scrollHeight);
+      $box.append($message);
+      $box.scrollTop($chatContainer[0].scrollHeight);
     }
   });
 })(jQuery);
