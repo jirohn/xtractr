@@ -22,3 +22,28 @@
   */
 
 // Aquí puedes añadir otros hooks y funciones necesarias para tu módulo.
+/**
+ * Implements hook_node_access().
+ */
+function xtractr_node_access(\Drupal\node\NodeInterface $node, $op, \Drupal\Core\Session\AccountInterface $account) {
+    // Define los tipos de contenido a restringir.
+    $restricted_types = ['telefono', 'pagina_de_extraccion', 'clientes', 'mensajes'];
+
+    // Restringe el acceso a 'view' para estos tipos de nodos.
+    if ($op == 'view' && in_array($node->getType(), $restricted_types)) {
+        // Verifica si el usuario actual es el autor del nodo.
+        if ($node->getOwnerId() !== $account->id() && !$account->hasPermission('administer nodes')) {
+            // Deniega el acceso si no es el autor y no tiene permisos de administrador.
+            return \Drupal\Core\Access\AccessResult::forbidden();
+        }
+    }
+
+    // Intenta prevenir la indexación y la inclusión en RSS.
+    $current_path = \Drupal::service('path.current')->getPath();
+    if (in_array($current_path, ['/rss', '/robots.txt']) || preg_match('/\/feed$/', $current_path)) {
+        return \Drupal\Core\Access\AccessResult::forbidden();
+    }
+
+    // No afecta a otros casos, deja que otros controles de acceso decidan.
+    return \Drupal\Core\Access\AccessResult::neutral();
+}
